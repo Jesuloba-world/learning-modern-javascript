@@ -181,26 +181,3 @@ writeStreetReport(ocean, evergreen, $4th, sunset);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
