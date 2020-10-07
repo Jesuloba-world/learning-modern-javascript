@@ -20,10 +20,18 @@ HINT: Use some of the ES6 features: classes, subclasses, template strings, defau
 
 
 
-// PARKS
-class Park {
-    constructor(name, establishYear, area=undefined, numOfTrees=undefined) {
+//PARENT
+class Element {
+    constructor(name, establishYear) {
         this.name = name;
+        this.establishYear = establishYear;
+    }
+}
+
+// PARKS
+class Park extends Element {
+    constructor(name, establishYear, area=undefined, numOfTrees=undefined) {
+        super(name, establishYear);
         this.age = new Date().getFullYear() - establishYear;
         this.density = numOfTrees / area;
         this.numOfTrees = numOfTrees;
@@ -34,8 +42,8 @@ function writeParkReport(...parks) {
     console.log(`-----PARKS REPORT-----`);
     
     // average age report
-    let sumAge = 0;
-    parks.forEach(cur => sumAge += cur.age);
+    const ages = parks.map(cur => cur.age);
+    let sumAge = ages.reduce((prev,cur) => prev + cur, 0);
     const averageAge = sumAge / parks.length;
     console.log(`Our ${parks.length} parks have an average age of ${Math.round(averageAge)} years.`);
     
@@ -54,15 +62,13 @@ const green = new Park('Green park', 1746, 0.1897, 204);
 const national = new Park('National park', 1860, 0.8599, 1050);
 const oak = new Park('Oak park', 1835, 0.3372, 800);
 
-
 writeParkReport(green, national, oak);
 
 
 //STREETS
-class Street {
+class Street extends Element {
     constructor(name, establishYear, length, classification = 'normal') {
-        this.name = name;
-        this.establishYear = establishYear;
+        super(name, establishYear);
         this.length = length;
         this.classification = classification;
     }
@@ -79,7 +85,7 @@ function writeStreetReport(...streets) {
     
     // size classification report
     streets.forEach(findClass);
-    streets.forEach(cur => console.log(`${cur.name}, built in ${cur.establishYear}, is a ${cur.classification} street.`));
+    streets.forEach(cur => console.log(`${cur.name}, built in ${cur.establishYear}, is a ${cur.classification} street.`)); 
     
 }
 
